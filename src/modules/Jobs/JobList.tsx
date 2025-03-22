@@ -79,8 +79,8 @@ const JobList = () => {
       </Space>
 
       <InfiniteScroll
-        onLoadMore={() => fetchNextPage()}
-        hasMore={!!hasNextPage}
+        onLoadMore={() => (hasNextPage && filteredJobs.length > 0) ? fetchNextPage() : undefined}
+        hasMore={!!hasNextPage && filteredJobs.length > 0}
         isLoading={isFetchingNextPage}
       >
         <div className="grid gap-4 w-full">
