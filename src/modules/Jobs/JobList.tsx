@@ -6,6 +6,7 @@ import { DropdownFilter, FilterOption } from '../../common/Components/DropdownFi
 import { Job } from '../../hooks/types'
 import CustomSpinner from '../../common/Components/CustomSpinner/CustomSpinner'
 import { FetchError } from '../../common/Components/FetchError/FetchError'
+import { InfiniteScroll } from '../../common/Components/InfiniteScroll/InfiniteScroll'
 
 const { Search } = Input;
 const { useBreakpoint } = Grid;
@@ -29,7 +30,14 @@ const JobList = () => {
     level: selectedLevel.map(option => option.value)
   }), [selectedLevel]);
     
-  const { data: jobs, isLoading, error } = useListJobs(filters, true);
+  const {
+    data: jobs,
+    isLoading,
+    error,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage
+  } = useListJobs(filters, true);
 
   const allJobs: Job[] = useMemo(() =>
     jobs?.pages.flatMap(page => page.results) || []
@@ -70,17 +78,28 @@ const JobList = () => {
 
       </Space>
 
-      <div className="grid gap-4 w-full">
-        <div className={`
-          grid 
-          gap-4 
-          ${screens.lg ? 'grid-cols-3' : screens.md ? 'grid-cols-2' : 'grid-cols-1'}
-        `}>
-          {filteredJobs?.map((job: Job) => (
-            <JobCard key={job.id} job={job} />
-          ))}
+      <InfiniteScroll
+        onLoadMore={() => fetchNextPage()}
+        hasMore={!!hasNextPage}
+        isLoading={isFetchingNextPage}
+      >
+        <div className="grid gap-4 w-full">
+          <div className={`
+            grid 
+            gap-4 
+            ${screens.lg ? 'grid-cols-3' : screens.md ? 'grid-cols-2' : 'grid-cols-1'}
+          `}>
+            {filteredJobs?.map((job: Job) => (
+              <JobCard key={job.id} job={job} />
+            ))}
+          </div>
         </div>
-      </div>
+        {(isLoading || isFetchingNextPage) && (
+          <div className="py-4">
+            <CustomSpinner fullscreen={false} />
+          </div>
+        )}
+      </InfiniteScroll>
     </Space>
   )
 }
