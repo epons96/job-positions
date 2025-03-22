@@ -29,7 +29,7 @@ async function fetchJobs({ pageParam = 1, filters = {} }: { pageParam?: number; 
   }
 }
 
-export function useGetJobs(filters: JobFilters = {}, enabled: boolean = true) {
+export function useListJobs(filters: JobFilters = {}, enabled: boolean = true) {
   const jobsQueryKey = ['jobs', filters];
 
   async function getJobs({ pageParam = 1 }) {

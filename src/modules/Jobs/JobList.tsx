@@ -1,6 +1,6 @@
 import { SetStateAction, useCallback, useMemo, useState } from 'react'
 import { Space, Input } from 'antd'
-import { useGetJobs } from '../../hooks/useGetJobs'
+import { useListJobs } from '../../hooks/useListJobs'
 import JobCard from './JobCard'
 import { DropdownFilter, FilterOption } from '../../common/Components/DropdownFilter'
 import { Job } from '../../hooks/types'
@@ -26,7 +26,7 @@ const JobList = () => {
     level: selectedLevel.map(option => option.value)
   }), [selectedLevel]);
     
-  const { data: jobs, isLoading, error } = useGetJobs(filters, true);
+  const { data: jobs, isLoading, error } = useListJobs(filters, true);
 
   const allJobs: Job[] = useMemo(() =>
     jobs?.pages.flatMap(page => page.results) || []
