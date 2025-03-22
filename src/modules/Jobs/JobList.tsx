@@ -5,6 +5,7 @@ import JobCard from './JobCard'
 import { DropdownFilter, FilterOption } from '../../common/Components/DropdownFilter'
 import { Job } from '../../hooks/types'
 import CustomSpinner from '../../common/Components/CustomSpinner/CustomSpinner'
+import { FetchError } from '../../common/Components/FetchError/FetchError'
 
 const { Search } = Input
 
@@ -43,7 +44,7 @@ const JobList = () => {
   }, [allJobs, searchTerm]);
 
   if (isLoading) return <CustomSpinner fullscreen/>
-  if (error) return <div>Error al cargar los empleos</div>
+  if (error) return <FetchError title='Hemos tenido un error al cargar la página' subTitle='Intente nuevamente en unos minutos'/>
 
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
