@@ -15,7 +15,17 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Layout>
           <Navbar />
-          <Content style={{ padding: '50px', maxWidth: 1200, margin: '0 auto' }}>
+          <Content className={`
+            px-4 
+            sm:px-8 
+            lg:px-12 
+            py-6 
+            sm:py-8 
+            lg:py-12 
+            max-w-7xl 
+            mx-auto 
+            w-full
+          `}>
             <AppRoutes />
           </Content>
         </Layout>
