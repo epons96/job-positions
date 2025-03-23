@@ -7,6 +7,8 @@ import { Job } from '../../hooks/types'
 import CustomSpinner from '../../common/Components/CustomSpinner/CustomSpinner'
 import { FetchError } from '../../common/Components/FetchError/FetchError'
 import { InfiniteScroll } from '../../common/Components/InfiniteScroll/InfiniteScroll'
+import { useTranslation } from 'react-i18next';
+import "./index.css";
 
 const { Search } = Input;
 const { useBreakpoint } = Grid;
@@ -18,6 +20,7 @@ const EXPERIENCE_LEVELS = [
 ];
 
 const JobList = () => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLevel, setSelectedLevel] = useState<FilterOption[]>([]);
   const screens = useBreakpoint();
@@ -54,24 +57,24 @@ const JobList = () => {
   }, [allJobs, searchTerm]);
 
   if (isLoading) return <CustomSpinner fullscreen/>
-  if (error) return <FetchError title='Hemos tenido un error al cargar la página' subTitle='Intente nuevamente en unos minutos'/>
+  if (error) return <FetchError title={t('Hemos tenido un error al cargar la página')} subTitle={t('Intente nuevamente en unos minutos')} />
 
   return (
-    <Space direction="vertical" className="w-full" size={screens.xs ? 12 : 16}>
+    <Space direction="vertical" className="w-full job-list" size={screens.xs ? 12 : 16}>
       <Space
         direction={screens.sm ? "horizontal" : "vertical"}
         className="w-full mb-4"
         size={screens.sm ? 16 : 12}
       >
         <Search
-          placeholder="Buscar empleos..."
+          placeholder={t('Buscar empleos...')}
           allowClear
           className={screens.sm ? "w-[300px]" : "w-full"}
           onChange={(e: { target: { value: SetStateAction<string> } }) => setSearchTerm(e.target.value)}
         />
         <DropdownFilter
           options={EXPERIENCE_LEVELS}
-          placeholder="Nivel de experiencia"
+          placeholder={t('Nivel de experiencia')}
           onChange={handleLevelChange}
           value={selectedLevel}
         />
