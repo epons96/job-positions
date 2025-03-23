@@ -44,7 +44,7 @@ const Navbar = () => {
               options={LANGUAGES}
               variant='borderless'
               suffixIcon={<GlobalOutlined className='text-sm!' />}
-              className='w-[70px]! dark:text-white! [&_.ant-select-selection-item]:dark:text-white!'
+              className='w-[70px]!'
               popupClassName='min-w-[70px]!'
               dropdownStyle={{ padding: '4px' }}
             />
