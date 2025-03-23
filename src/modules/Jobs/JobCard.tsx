@@ -19,11 +19,13 @@ const JobCard = ({ job }: JobCardProps) => {
       <Card
         hoverable
         className="h-full"
-        bodyStyle={{
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          padding: screens.sm ? 24 : 16
+        styles={{
+          body: {
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            padding: screens.sm ? 24 : 16
+          }
         }}
       >
         <Title level={4} className={screens.sm ? 'text-xl' : 'text-lg'}>
