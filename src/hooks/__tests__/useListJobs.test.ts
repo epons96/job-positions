@@ -14,6 +14,8 @@ describe('useListJobs', () => {
         page_count: 2,
         items_per_page: 20,
         total: 30,
+        took: 0,
+        timed_out: false,
         results: [
           {
             id: 1,
@@ -35,7 +37,14 @@ describe('useListJobs', () => {
             },
             categories: []
           }
-        ]
+        ],
+        aggregations: {}
+      },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {
+        url: 'https://api.test/jobs'
       }
     }
 
