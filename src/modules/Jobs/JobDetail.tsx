@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { ApplicationModal } from './ApplicationModal'
 import CustomSpinner from '../../common/Components/CustomSpinner/CustomSpinner'
 import { FetchError } from '../../common/Components/FetchError/FetchError'
+import { Location } from '../../hooks/types'
 
 const { Title } = Typography
 
@@ -28,7 +29,7 @@ const JobDetail = () => {
 
         <Space>
           <Tag color="blue">{job.type}</Tag>
-          <Tag color="default">{job.locations.map(loc => loc.name).join(', ')}</Tag>
+          <Tag color="default">{job.locations.map((loc: Location) => loc.name).join(', ')}</Tag>
         </Space>
 
         <div>
