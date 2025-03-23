@@ -52,4 +52,13 @@ export const en = {
   filtros: "filters",
   Buscar: "Search",
   "No hay coincidencias": "No matches found",
+  "Conéctate conmigo en LinkedIn": "Connect with me on LinkedIn",
+  "Tecnologías Utilizadas": "Technologies Used",
+  Estadísticas: "Statistics",
+  "Empleos publicados": "Published Jobs",
+  "Empresas activas": "Active Companies",
+  "Aplicaciones enviadas": "Submitted Applications",
+  "Links útiles": "Useful Links",
+  "Código fuente en GitHub": "Source code on GitHub",
+  Documentación: "Documentation",
 };
