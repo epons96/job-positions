@@ -3,6 +3,7 @@ import { SetStateAction, useEffect, useMemo, useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 // import "./styles.css";
 import { isEqual } from "lodash";
+import { useTranslation } from "react-i18next";
 
 export type FilterOption = {
   label: string;
@@ -36,6 +37,21 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
   const searchInputRef = useRef<InputRef>(null);
   const [searchValue, setSearchValue] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
+
+  const translatedOptions = useMemo(() => {
+    return options.map(option => ({
+      ...option,
+      label: t(option.label)
+    }));
+  }, [options, t]);
+
+  const translatedValue = useMemo(() => {
+    return value.map(v => ({
+      ...v,
+      label: t(v.label)
+    }));
+  }, [value, t]);
 
   useEffect(() => {
     if (!isEqual(value, propValue)) {
@@ -51,18 +67,20 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
   }, [open]);
 
   const filters = useMemo(() => {
-    return options.filter((option: { value: string; label: string; }) => {
+    return translatedOptions.filter((option: { value: string; label: string; }) => {
       const searchRegex = new RegExp(searchValue.trim(), "gi");
       return !searchValue ||
         searchRegex.test(option.value) ||
         searchRegex.test(option.label);
     });
-  }, [options, searchValue]);
+  }, [translatedOptions, searchValue]);
 
   const handleOptionSelect = (filter: FilterOption) => {
-    const newValue = value.some(v => isEqual(v, filter))
-      ? value.filter(v => !isEqual(v, filter))
-      : [...value, filter];
+    const originalOption = options.find(opt => opt.value === filter.value) || filter;
+
+    const newValue = value.some(v => isEqual(v.value, filter.value))
+      ? value.filter(v => !isEqual(v.value, filter.value))
+      : [...value, originalOption];
 
     setValue(newValue);
     onChange?.(newValue.map(v => v.value), newValue);
@@ -75,7 +93,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
           ref={searchInputRef}
           onChange={(e: { target: { value: SetStateAction<string>; }; }) => setSearchValue(e.target.value)}
           value={searchValue}
-          placeholder="Buscar"
+          placeholder={t('Buscar')}
           type="search"
           size="middle"
           suffix={<SearchOutlined />}
@@ -94,7 +112,7 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
               </Checkbox>
             ))
           ) : (
-            <Empty description="No hay coincidencias" />
+              <Empty description={t('No hay coincidencias')} />
           )}
         </div>
       </div>
@@ -104,15 +122,15 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
   const displayValue = !value.length
     ? []
     : value.length === 1
-      ? [{ value: value[0].value, label: value[0].label }]
-      : [{ value: 'multiple', label: `${value.length} ${pluralLabelSuffix}` }];
+      ? [{ value: translatedValue[0].value, label: translatedValue[0].label }]
+      : [{ value: 'multiple', label: `${value.length} ${t(pluralLabelSuffix)}` }];
 
   return (
     <div ref={containerRef}>
       <Select
         open={open}
         value={displayValue}
-        placeholder={placeholder}
+        placeholder={t(placeholder)}
         onDropdownVisibleChange={setOpen}
         dropdownRender={() => dropdownContent}
         // mode="multiple"

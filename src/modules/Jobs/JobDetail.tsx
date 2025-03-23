@@ -6,6 +6,7 @@ import { ApplicationModal } from './ApplicationModal'
 import CustomSpinner from '../../common/Components/CustomSpinner/CustomSpinner'
 import { FetchError } from '../../common/Components/FetchError/FetchError'
 import { Location } from '../../hooks/types'
+import { useTranslation } from 'react-i18next'
 
 const { Title } = Typography
 
@@ -13,7 +14,7 @@ const JobDetail = () => {
   const { id } = useParams();
   const [openModal, setOpenModal] = useState(false);
   const { data: job, isLoading } = useGetJob(id || '');
-  
+  const { t } = useTranslation();
 
   if (isLoading) return <CustomSpinner fullscreen />
 
@@ -33,7 +34,7 @@ const JobDetail = () => {
         </Space>
 
         <div>
-          <Title level={4}>Descripción</Title>
+          <Title level={4}>{t('Descripción')}</Title>
           <div
             className='pt-1.5'
             dangerouslySetInnerHTML={{ __html: job.contents }}
@@ -41,7 +42,7 @@ const JobDetail = () => {
         </div>
 
         <Button type="primary" size="large" onClick={() => setOpenModal(true)}>
-          Aplicar ahora
+          {t('Aplicar ahora')}
         </Button>
       </Space>
 

@@ -11,6 +11,7 @@ A web application to list and search job offers, built with React, TypeScript an
 - 📝 Application form
 - ✨ Modern UI with Ant Design
 - 🧪 Unit testing with Vitest
+- 🔗 QR code for LinkedIn connection
 
 ## 🛠️ Tech Stack
 
@@ -23,6 +24,7 @@ A web application to list and search job offers, built with React, TypeScript an
 - React Router
 - Zustand
 - Vitest
+- i18next
 
 ## 📋 Prerequisites
 
@@ -75,9 +77,11 @@ src/
   ├── hooks/          # Custom hooks
   ├── modules/        # Main features/modules
   │   ├── Jobs/       # Jobs module
+  │   ├── About/      # About page
   │   └── Navbar/     # Navigation bar
-  ├── store/         # Global state (Zustand)
-  └── test/          # Test setup
+  ├── store/          # Global state (Zustand)
+  ├── locales/        # i18n translations
+  └── test/           # Test setup
 ```
 
 ## 🧪 Testing
@@ -88,6 +92,21 @@ The project includes unit and integration tests using Vitest and React Testing L
 - Custom hooks tests
 - API integration tests
 - Test coverage
+
+## 🌍 Internationalization
+
+The application supports multiple languages:
+- English (EN)
+- Spanish (ES)
+
+Language can be changed through the language selector in the navigation bar.
+
+## 📱 Responsive Design
+
+The application is fully responsive and optimized for:
+- Mobile devices (< 640px)
+- Tablets (≥ 640px)
+- Desktop (≥ 1024px)
 
 ## 🤝 Contributing
 

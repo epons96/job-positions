@@ -1,0 +1,11 @@
+.job-list{
+  > .ant-space-item:nth-child(2) {
+   overflow: auto !important;
+    height: calc(100vh - 224px) !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

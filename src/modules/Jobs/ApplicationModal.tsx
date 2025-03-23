@@ -1,6 +1,7 @@
 import { Button, Form, Input, message, Modal, Space } from 'antd';
 import React from 'react'
 import { Job } from '../../hooks/types';
+import { useTranslation } from 'react-i18next';
 
 interface ApplicationModalProps {
   job: Job;
@@ -16,7 +17,7 @@ interface ApplicationForm {
 }
 
 export const ApplicationModal = ({ job, openModal, setOpenModal }: ApplicationModalProps) => {
-
+  const { t } = useTranslation();
   const [form] = Form.useForm<ApplicationForm>();
 
   /**
@@ -37,20 +38,20 @@ export const ApplicationModal = ({ job, openModal, setOpenModal }: ApplicationMo
   const handleSubmit = async () => {
     try {
 
-      message.loading('Enviando aplicación...', 1.5);
+      message.loading(t('Enviando aplicación...'), 1.5);
       await new Promise(resolve => setTimeout(resolve, 1500));
 
-      message.success('Aplicación enviada correctamente');
+      message.success(t('Aplicación enviada correctamente'));
       setOpenModal(false);
       form.resetFields();
     } catch (error) {
-      message.error('Error al enviar la aplicación');
+      message.error(t('Error al enviar la aplicación'));
     }
   };
 
   return (
     <Modal
-      title={`Aplicar a: ${job.name}`}
+      title={`${t('Aplicar a')}: ${job.name}`}
       centered
       open={openModal}
       onCancel={() => setOpenModal(false)}
@@ -71,40 +72,40 @@ export const ApplicationModal = ({ job, openModal, setOpenModal }: ApplicationMo
         requiredMark="optional"
       >
         <Form.Item
-          label="Nombres"
+          label={t('Nombres')}
           name="firstName"
-          rules={[{ required: true, message: 'Por favor ingresa tus nombres' }]}
+          rules={[{ required: true, message: t('Por favor ingresa tus nombres') }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Apellidos"
+          label={t('Apellidos')}
           name="lastName"
-          rules={[{ required: true, message: 'Por favor ingresa tus apellidos' }]}
+          rules={[{ required: true, message: t('Por favor ingresa tus apellidos') }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Correo electrónico"
+          label={t('Correo electrónico')}
           name="email"
           rules={[
-            { required: true, message: 'Por favor ingresa tu correo electrónico' },
-            { type: 'email', message: 'Por favor ingresa un correo electrónico válido' }
+            { required: true, message: t('Por favor ingresa tu correo electrónico') },
+            { type: 'email', message: t('Por favor ingresa un correo electrónico válido') }
           ]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Link del CV"
+          label={t('Link del CV')}
           name="cvLink"
           rules={[
-            { required: true, message: 'Por favor ingresa el link de tu CV' },
+            { required: true, message: t('Por favor ingresa el link de tu CV') },
             {
               type: 'url',
-              message: 'Por favor ingresa una URL válida',
+              message: t('Por favor ingresa una URL válida'),
             },
             {
               validator: (_, value) => {
@@ -114,7 +115,7 @@ export const ApplicationModal = ({ job, openModal, setOpenModal }: ApplicationMo
                 const isValidDomain = validDomains.some(domain => url.hostname.includes(domain));
                 return isValidDomain
                   ? Promise.resolve()
-                  : Promise.reject('Por favor usa Google Drive, Dropbox u OneDrive');
+                  : Promise.reject(t('Por favor usa Google Drive, Dropbox u OneDrive'));
               },
             }
           ]}
@@ -125,10 +126,10 @@ export const ApplicationModal = ({ job, openModal, setOpenModal }: ApplicationMo
         <Form.Item>
           <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
             <Button onClick={() => setOpenModal(false)}>
-              Cancelar
+              {t('Cancelar')}
             </Button>
             <Button type="primary" htmlType="submit">
-              Enviar solicitud
+              {t('Enviar solicitud')}
             </Button>
           </Space>
         </Form.Item>
