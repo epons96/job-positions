@@ -19,7 +19,6 @@ async function fetchJobs({ pageParam = 1, filters = {} }: { pageParam?: number; 
     }
     
     const url = `${API_ENDPOINT}?${queryString.toString()}`;
-    console.log(url);
     
     const { data } = await axios.get<JobsResponse>(url);
     return data;
